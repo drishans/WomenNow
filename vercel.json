@@ -1,23 +1,10 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/server.ts",
-      "use": "@vercel/node"
+  "functions": {
+    "api/submit-survey.ts": {
+      "maxDuration": 10
     },
-    {
-      "src": "src/**",
-      "use": "@vercel/static"
+    "api/download-csv.ts": {
+      "maxDuration": 10
     }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/server.ts"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/src/$1"
-    }
-  ]
+  }
 }
