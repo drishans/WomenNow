@@ -1,0 +1,26 @@
+{
+  "name": "dili-haat-survey",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "tsx watch api/server.ts",
+    "start": "node dist/api/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.23",
+    "@types/node": "^24.0.1",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "csv-writer": "^1.6.0",
+    "express": "^4.21.2",
+    "tsx": "^4.20.1",
+    "typescript": "^5.8.3"
+  }
+}
