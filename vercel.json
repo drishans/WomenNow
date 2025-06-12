@@ -2,9 +2,6 @@
   "functions": {
     "api/submit-survey.ts": {
       "maxDuration": 10
-    },
-    "api/download-csv.ts": {
-      "maxDuration": 10
     }
   }
 }
