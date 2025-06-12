@@ -1,10 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import * as fs from 'fs';
-import * as path from 'path';
-import { parse } from 'csv-parse/sync';
-import { stringify } from 'csv-stringify/sync';
 
-// Store submitted emails in memory (resets on each deployment)
+// Store submitted emails in memory to prevent duplicates during the event
 const submittedEmails = new Set<string>();
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -38,11 +34,45 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             });
         }
 
-        // In production, we'll store data differently
-        // For now, just add to memory and return success
+        // Prepare data for Google Sheets
+        const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
+        const rowData = [
+            timestamp,
+            surveyData.name,
+            surveyData.phone,
+            surveyData.email,
+            surveyData.overall_rating,
+            surveyData.overall_comments || '',
+            surveyData.food_rating,
+            surveyData.food_comments || '',
+            surveyData.decor_rating,
+            surveyData.decor_comments || '',
+            surveyData.entertainment_rating,
+            surveyData.entertainment_comments || ''
+        ];
+
+        // Google Sheets Web App URL (you'll need to replace this)
+        const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL || '';
+        
+        if (GOOGLE_SHEETS_URL) {
+            // Send to Google Sheets
+            const response = await fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ row: rowData })
+            });
+
+            if (!response.ok) {
+                console.error('Failed to save to Google Sheets');
+            }
+        }
+
+        // Add email to submitted set
         submittedEmails.add(emailLower);
         
-        // Log the submission (visible in Vercel logs)
+        // Log for backup
         console.log('Survey submission:', JSON.stringify(surveyData, null, 2));
         
         res.status(200).json({ success: true });
