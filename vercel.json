@@ -6,5 +6,19 @@
     "api/download-csv.ts": {
       "maxDuration": 10
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/src/index.html"
+    },
+    {
+      "source": "/styles.css",
+      "destination": "/src/styles.css"
+    },
+    {
+      "source": "/script.js",
+      "destination": "/src/script.js"
+    }
+  ]
 }
