@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dili Haat Survey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -29,7 +30,7 @@
 
                 <div class="form-group">
                     <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
                 </div>
             </div>
 
@@ -37,51 +38,51 @@
                 <h2>Event Feedback</h2>
 
                 <div class="rating-group">
-                    <label>Overall Experience</label>
+                    <label>Overall Experience *</label>
                     <div class="star-rating" data-rating="overall">
-                        <span class="star" data-value="1"></span>
-                        <span class="star" data-value="2"></span>
-                        <span class="star" data-value="3"></span>
-                        <span class="star" data-value="4"></span>
-                        <span class="star" data-value="5"></span>
+                        <i class="star fa-solid fa-star" data-value="1"></i>
+                        <i class="star fa-solid fa-star" data-value="2"></i>
+                        <i class="star fa-solid fa-star" data-value="3"></i>
+                        <i class="star fa-solid fa-star" data-value="4"></i>
+                        <i class="star fa-solid fa-star" data-value="5"></i>
                     </div>
-                    <textarea name="overall_comments" placeholder="Additional comments about your overall experience"></textarea>
+                    <textarea name="overall_comments" placeholder="Additional comments (optional)"></textarea>
                 </div>
 
                 <div class="rating-group">
-                    <label>Food</label>
+                    <label>Food *</label>
                     <div class="star-rating" data-rating="food">
-                        <span class="star" data-value="1"></span>
-                        <span class="star" data-value="2"></span>
-                        <span class="star" data-value="3"></span>
-                        <span class="star" data-value="4"></span>
-                        <span class="star" data-value="5"></span>
+                        <i class="star fa-solid fa-star" data-value="1"></i>
+                        <i class="star fa-solid fa-star" data-value="2"></i>
+                        <i class="star fa-solid fa-star" data-value="3"></i>
+                        <i class="star fa-solid fa-star" data-value="4"></i>
+                        <i class="star fa-solid fa-star" data-value="5"></i>
                     </div>
-                    <textarea name="food_comments" placeholder="Comments about the food"></textarea>
+                    <textarea name="food_comments" placeholder="Comments (optional)"></textarea>
                 </div>
 
                 <div class="rating-group">
-                    <label>Decor</label>
+                    <label>Decor *</label>
                     <div class="star-rating" data-rating="decor">
-                        <span class="star" data-value="1"></span>
-                        <span class="star" data-value="2"></span>
-                        <span class="star" data-value="3"></span>
-                        <span class="star" data-value="4"></span>
-                        <span class="star" data-value="5"></span>
+                        <i class="star fa-solid fa-star" data-value="1"></i>
+                        <i class="star fa-solid fa-star" data-value="2"></i>
+                        <i class="star fa-solid fa-star" data-value="3"></i>
+                        <i class="star fa-solid fa-star" data-value="4"></i>
+                        <i class="star fa-solid fa-star" data-value="5"></i>
                     </div>
-                    <textarea name="decor_comments" placeholder="Comments about the decor"></textarea>
+                    <textarea name="decor_comments" placeholder="Comments (optional)"></textarea>
                 </div>
 
                 <div class="rating-group">
-                    <label>Overall Entertainment</label>
+                    <label>Overall Entertainment *</label>
                     <div class="star-rating" data-rating="entertainment">
-                        <span class="star" data-value="1"></span>
-                        <span class="star" data-value="2"></span>
-                        <span class="star" data-value="3"></span>
-                        <span class="star" data-value="4"></span>
-                        <span class="star" data-value="5"></span>
+                        <i class="star fa-solid fa-star" data-value="1"></i>
+                        <i class="star fa-solid fa-star" data-value="2"></i>
+                        <i class="star fa-solid fa-star" data-value="3"></i>
+                        <i class="star fa-solid fa-star" data-value="4"></i>
+                        <i class="star fa-solid fa-star" data-value="5"></i>
                     </div>
-                    <textarea name="entertainment_comments" placeholder="Comments about the entertainment"></textarea>
+                    <textarea name="entertainment_comments" placeholder="Comments (optional)"></textarea>
                 </div>
             </div>
 
