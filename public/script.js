@@ -84,15 +84,28 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     // Form submission
     form.addEventListener('submit', function (e) { return __awaiter(_this, void 0, void 0, function () {
-        var requiredRatings, missingRatings, formData, surveyData, response, result, error_1;
+        var submitBtn, requiredRatings, missingRatings, formData, surveyData, response, result, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     e.preventDefault();
+                    submitBtn = form.querySelector('.submit-btn');
+                    
+                    // Disable button and show loading state
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Submitting...';
+                    submitBtn.style.opacity = '0.6';
+                    submitBtn.style.cursor = 'not-allowed';
+                    
                     requiredRatings = ['overall', 'food', 'decor', 'entertainment'];
                     missingRatings = requiredRatings.filter(function (rating) { return !ratings[rating]; });
                     if (missingRatings.length > 0) {
                         alert("Please rate: ".concat(missingRatings.join(', ')));
+                        // Re-enable button
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Survey';
+                        submitBtn.style.opacity = '1';
+                        submitBtn.style.cursor = 'pointer';
                         return [2 /*return*/];
                     }
                     formData = new FormData(form);
@@ -134,6 +147,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                     else {
+                        // Re-enable button on error
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Survey';
+                        submitBtn.style.opacity = '1';
+                        submitBtn.style.cursor = 'pointer';
+                        
                         if (result.error === 'duplicate') {
                             alert('You have already submitted a survey with this email address.');
                         }
@@ -145,6 +164,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 case 4:
                     error_1 = _a.sent();
                     console.error('Error:', error_1);
+                    
+                    // Re-enable button on error
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Survey';
+                    submitBtn.style.opacity = '1';
+                    submitBtn.style.cursor = 'pointer';
+                    
                     alert('There was an error submitting your survey. Please try again.');
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
