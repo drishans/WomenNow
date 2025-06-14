@@ -1,8 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-// Store submitted emails in memory to prevent duplicates during the event
-const submittedEmails = new Set<string>();
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -25,13 +22,44 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     try {
         const surveyData = req.body;
         
-        // Check for duplicate submission
-        const emailLower = surveyData.email.toLowerCase();
-        if (submittedEmails.has(emailLower)) {
-            return res.status(400).json({ 
+        // Google Sheets Web App URL
+        const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL || '';
+        
+        if (!GOOGLE_SHEETS_URL) {
+            console.error('GOOGLE_SHEETS_URL not configured');
+            return res.status(500).json({ 
                 success: false, 
-                error: 'duplicate' 
+                error: 'server_error' 
             });
+        }
+
+        // Check for duplicate submission in Google Sheets
+        const emailLower = surveyData.email.toLowerCase();
+        
+        try {
+            const checkResponse = await fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    checkDuplicate: true,
+                    email: emailLower 
+                })
+            });
+
+            if (checkResponse.ok) {
+                const result = await checkResponse.json();
+                if (result.exists) {
+                    return res.status(400).json({ 
+                        success: false, 
+                        error: 'duplicate' 
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Error checking for duplicates:', error);
+            // Continue anyway - better to risk a duplicate than block submission
         }
 
         // Prepare data for Google Sheets
@@ -48,29 +76,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             surveyData.decor_rating,
             surveyData.decor_comments || '',
             surveyData.entertainment_rating,
-            surveyData.entertainment_comments || ''
+            surveyData.entertainment_comments || '',
+            surveyData.referralSource || ''
         ];
 
-        // Google Sheets Web App URL (you'll need to replace this)
-        const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL || '';
-        
-        if (GOOGLE_SHEETS_URL) {
-            // Send to Google Sheets
-            const response = await fetch(GOOGLE_SHEETS_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ row: rowData })
+        // Send to Google Sheets
+        const response = await fetch(GOOGLE_SHEETS_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ row: rowData })
+        });
+
+        if (!response.ok) {
+            console.error('Failed to save to Google Sheets');
+            return res.status(500).json({ 
+                success: false, 
+                error: 'server_error' 
             });
-
-            if (!response.ok) {
-                console.error('Failed to save to Google Sheets');
-            }
         }
-
-        // Add email to submitted set
-        submittedEmails.add(emailLower);
         
         // Log for backup
         console.log('Survey submission:', JSON.stringify(surveyData, null, 2));

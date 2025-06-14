@@ -13,6 +13,29 @@ function doPost(e) {
     
     // Parse the incoming data
     const data = JSON.parse(e.postData.contents);
+    
+    // Check if this is a duplicate check request
+    if (data.checkDuplicate) {
+      const email = data.email.toLowerCase();
+      const emailColumn = 4; // Email is in column D (4th column)
+      const dataRange = sheet.getDataRange();
+      const values = dataRange.getValues();
+      
+      // Check if email already exists (skip header row)
+      for (let i = 1; i < values.length; i++) {
+        if (values[i][emailColumn - 1] && values[i][emailColumn - 1].toString().toLowerCase() === email) {
+          return ContentService
+            .createTextOutput(JSON.stringify({ exists: true }))
+            .setMimeType(ContentService.MimeType.JSON);
+        }
+      }
+      
+      return ContentService
+        .createTextOutput(JSON.stringify({ exists: false }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // Regular submission
     const row = data.row;
     
     // Append the row to the sheet
@@ -39,6 +62,7 @@ function setupHeaders() {
     'Name',
     'Phone',
     'Email',
+    'How did you hear about us?',
     'Overall Rating',
     'Overall Comments',
     'Food Rating',

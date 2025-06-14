@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         name: formData.get('name'),
                         phone: formData.get('phone'),
                         email: formData.get('email'),
+                        referralSource: formData.get('referralSource'),
                         overall_rating: ratings.overall,
                         overall_comments: formData.get('overall_comments'),
                         food_rating: ratings.food,
