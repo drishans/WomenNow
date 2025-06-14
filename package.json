@@ -1,20 +1,13 @@
 {
   "name": "dili-haat-survey",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Survey collection app for Dili Haat South Asian event",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "dev": "tsx watch api/server.ts",
-    "start": "node dist/api/server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["survey", "event", "feedback"],
+  "author": "drishan",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "typescript": "^5.8.3"
-  },
   "devDependencies": {
     "@vercel/node": "^5.2.2"
   }
