@@ -70,7 +70,8 @@ function setupHeaders() {
     'Decor Rating',
     'Decor Comments',
     'Entertainment Rating',
-    'Entertainment Comments'
+    'Entertainment Comments',
+    'Suggestions'
   ];
   
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);

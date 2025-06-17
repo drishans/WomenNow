@@ -69,6 +69,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             surveyData.name,
             surveyData.phone,
             surveyData.email,
+            surveyData.referralSource || '',
             surveyData.overall_rating,
             surveyData.overall_comments || '',
             surveyData.food_rating,
@@ -77,7 +78,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             surveyData.decor_comments || '',
             surveyData.entertainment_rating,
             surveyData.entertainment_comments || '',
-            surveyData.referralSource || ''
+            surveyData.suggestions || ''
         ];
 
         // Send to Google Sheets

@@ -122,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         decor_comments: formData.get('decor_comments'),
                         entertainment_rating: ratings.entertainment,
                         entertainment_comments: formData.get('entertainment_comments'),
+                        suggestions: formData.get('suggestions'),
                         timestamp: new Date().toISOString()
                     };
                     _a.label = 1;
