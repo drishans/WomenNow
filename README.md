@@ -1,6 +1,6 @@
-# Dili Haat Survey Site
+# Durga Puja Survey Site
 
-A simple survey collection website for the Dili Haat South Asian event hosted by WomenNowTV.
+A simple survey collection website for the Durga Puja event hosted by WomenNowTV.
 
 ## Features
 - Contact information collection (name, phone, email)
@@ -57,7 +57,7 @@ npx vercel dev
 ```
 
 ## Live URL
-https://dili-haat-survey.vercel.app
+https://durga-puja-survey.vercel.app
 
 ## Tech Stack
 - Frontend: HTML, CSS, JavaScript
